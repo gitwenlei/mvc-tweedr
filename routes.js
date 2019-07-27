@@ -24,6 +24,13 @@ module.exports = (app, allModels) => {
     // ========================
     app.get('/tweedr/login', tweedrControllerCallbacks.login); // see tweedr_ctrl.js line 56
 
+
+    // ===============================
+    // POST check to verify user login
+    // ================================
+    app.post('/check', tweedrControllerCallbacks.check);  // see tweedr_ctrl.js
+
+
     // ========================
     // GET register page
     // ========================
