@@ -8,7 +8,7 @@ class Login extends React.Component {
           <div>
             <h1>Welcome to Tweedr!</h1>
             <h3>Please login</h3>
-            <form action="/login" method="POST">
+            <form action="/check" method="POST">
                 <p>
                     name
                     <input name="name"/>
