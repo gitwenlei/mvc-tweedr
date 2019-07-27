@@ -17,29 +17,33 @@ module.exports = (app, allModels) => {
     // ========================
     // GET home page
     // ========================
-    app.get('/tweedr', tweedrControllerCallbacks.index); // see tweedr_ctrl.js line 55
+    app.get('/', tweedrControllerCallbacks.index); // see tweedr_ctrl.js line 55
+
 
     // ========================
-    // GET login page
+    // LOGIN STUFF
     // ========================
-    app.get('/tweedr/login', tweedrControllerCallbacks.login); // see tweedr_ctrl.js line 56
-
-
-    // ===============================
-    // POST check to verify user login
-    // ================================
+    // login form
+    app.get('/login', tweedrControllerCallbacks.login); // see tweedr_ctrl.js line 56
+    // verify user login
     app.post('/check', tweedrControllerCallbacks.check);  // see tweedr_ctrl.js
 
 
     // ========================
-    // GET register page
+    // REGISTRATION STUFF
     // ========================
-    app.get('/tweedr/register', tweedrControllerCallbacks.register); // see tweedr_ctrl.js line 57
-
-    // ========================
-    // POST users to register user
+    // show registration form
+    app.get('/register', tweedrControllerCallbacks.register); // see tweedr_ctrl.js
+    // save new user to database
     // ========================
     app.post('/users', tweedrControllerCallbacks.users);  // see tweedr_ctrl.js
+
+
+    // ========================
+    // TWEETING STUFF
+    // ========================
+    // Show create new tweet form
+    // app.get('/tweet',tweedrControllerCallbacks.tweet);
 
 
 
