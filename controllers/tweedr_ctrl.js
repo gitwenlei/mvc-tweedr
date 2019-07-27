@@ -35,9 +35,8 @@ module.exports = (db) => {
                 console.log('correct' , results[0]);
                 response.cookie('loggedin', true);
                 response.cookie('user_id', user_id);
-                response.redirect('/tweedr');
+                response.redirect('/');
             } else {
-                console.log('invalid' , results[0]);
                 console.log("incorrect password");
                 response.send('invalid input');
             }
@@ -62,7 +61,7 @@ module.exports = (db) => {
     let usersControllerCallback = (request, response) => { // function declared in routes.js
         db.tweedr.postUsers(request.body, (error, allUsers) => {
         // response.send("Registration Successful!");
-        response.redirect('/tweedr');
+        response.redirect('/');
         });
     };
 
