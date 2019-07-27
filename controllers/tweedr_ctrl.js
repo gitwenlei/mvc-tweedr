@@ -12,17 +12,15 @@ module.exports = (db) => {
         // model file tweedr_model.js line 9
         // getAll function - show all tweets
         // console.log(allTweets);
-        response.render('tweedr/index', { allTweets }); //display index html page in views folder
+        response.render('tweedr/index', { allTweets }); //display index page in views folder
         });
     };
 
     // ========================
-    // Show login page
+    // Show login form
     // ========================
-    let loginControllerCallback = (request, response) => { // function declared in routes.js
-      db.tweedr.getLogin((error, allUsers) => {
-        response.render('tweedr/login', { allUsers }); //display login form
-      });
+    let loginForm = (request, response) => { // function declared in routes.js
+        response.render('tweedr/login'); //display login form
   };
 
 
@@ -34,11 +32,12 @@ module.exports = (db) => {
             if (results !== null) {
                 // console.log(results);
                 let user_id = results[0].id;
+                console.log('correct' , results[0]);
                 response.cookie('loggedin', true);
                 response.cookie('user_id', user_id);
                 response.redirect('/tweedr');
             } else {
-                console.log('invalid' , results);
+                console.log('invalid' , results[0]);
                 console.log("incorrect password");
                 response.send('invalid input');
             }
@@ -51,7 +50,7 @@ module.exports = (db) => {
     // ========================
     let registerControllerCallback = (request, response) => { // function declared in routes.js
       db.tweedr.getRegister((error, allUsers) => {
-        console.log(allUsers);
+        // console.log(allUsers);
         response.render('tweedr/register', { allUsers }); //display registration form
       });
     };
@@ -78,7 +77,7 @@ module.exports = (db) => {
 
   return {
     index: indexControllerCallback, // see above line 9
-    login: loginControllerCallback, // see above line 22
+    login: loginForm, // see above line 22
     register: registerControllerCallback, // see above line 36
     users: usersControllerCallback, // see above line 50
     check: checkControllerCallback,
