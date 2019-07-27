@@ -44,8 +44,57 @@ module.exports = (dbPoolInstance) => {
         });
     };
 
+
+
+    // ========================
+    // Show register page
+    // ========================
+    let getRegister = (callback) => {  // called in tweedr_ctrl file line 23
+        let query = `SELECT * FROM users`;
+        dbPoolInstance.query(query, (error, queryResult) => {
+          if( error ){
+            // invoke callback function with results after query has executed
+            callback(error, null);
+          }else{
+            // invoke callback function with results after query has executed
+            if( queryResult.rows.length > 0 ){
+              callback(null, queryResult.rows);
+            }else{
+              callback(null, null);
+            }
+          }
+        });
+    };
+
+
+    // ========================================
+    // Show user registration successful page
+    // ========================================
+    let postUsers = (tweedr, callback) => {  // called in tweedr_ctrl file line 51
+        let query = `INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *`;
+        const values = [tweedr.name, tweedr.password];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+          if( error ){
+            // invoke callback function with results after query has executed
+            callback(error, null);
+          }else{
+            // invoke callback function with results after query has executed
+            if( queryResult.rows.length > 0 ){
+              callback(null, queryResult.rows);
+            }else{
+              callback(null, null);
+            }
+          }
+        });
+    };
+
+
+
     return {
         getAll,
         getLogin,
+        getRegister,
+        postUsers,
     };
 };
