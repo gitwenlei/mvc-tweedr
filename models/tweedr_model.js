@@ -5,25 +5,47 @@
  */
 module.exports = (dbPoolInstance) => {
 
-  // `dbPoolInstance` is accessible within this function scope
-  let getAll = (callback) => {  // called in tweedr_ctrl file line 10
-    let query = `SELECT * FROM tweets`;
-    dbPoolInstance.query(query, (error, queryResult) => {
-      if( error ){
-        // invoke callback function with results after query has executed
-        callback(error, null);
-      }else{
-        // invoke callback function with results after query has executed
-        if( queryResult.rows.length > 0 ){
-          callback(null, queryResult.rows);
-        }else{
-          callback(null, null);
-        }
-      }
-    });
-  };
+    // `dbPoolInstance` is accessible within this function scope
+    let getAll = (callback) => {  // called in tweedr_ctrl file line 10
+        let query = `SELECT * FROM tweets`;
+        dbPoolInstance.query(query, (error, queryResult) => {
+          if( error ){
+            // invoke callback function with results after query has executed
+            callback(error, null);
+          }else{
+            // invoke callback function with results after query has executed
+            if( queryResult.rows.length > 0 ){
+              callback(null, queryResult.rows);
+            }else{
+              callback(null, null);
+            }
+          }
+        });
+    };
 
-  return {
-    getAll,
-  };
+
+    // ========================
+    // Show login page
+    // ========================
+    let getLogin = (callback) => {  // called in tweedr_ctrl file line 23
+        let query = `SELECT * FROM users`;
+        dbPoolInstance.query(query, (error, queryResult) => {
+          if( error ){
+            // invoke callback function with results after query has executed
+            callback(error, null);
+          }else{
+            // invoke callback function with results after query has executed
+            if( queryResult.rows.length > 0 ){
+              callback(null, queryResult.rows);
+            }else{
+              callback(null, null);
+            }
+          }
+        });
+    };
+
+    return {
+        getAll,
+        getLogin,
+    };
 };
