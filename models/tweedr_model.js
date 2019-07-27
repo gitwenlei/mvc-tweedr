@@ -45,6 +45,31 @@ module.exports = (dbPoolInstance) => {
     };
 
 
+    // ========================
+    // Check user login details
+    // ========================
+    let checkUsers = (tweedr, callback) => {  // called in tweedr_ctrl file line 23
+        let query = `SELECT * FROM users WHERE name=$1`;
+        const values = [tweedr.name];
+
+        dbPoolInstance.query(query, values, (error, queryResult) => {
+            if (error){
+                callback(error, null);
+            } else {
+                if (queryResult.rows.length > 0 ) {
+                    if (queryResult.rows[0].password === tweedr.password) {
+                        callback(null, queryResult.rows);
+                    } else {
+                        callback(null, null);
+                    }
+                } else {
+                    callback(null, null);
+                }
+            }
+        });
+    };
+
+
 
     // ========================
     // Show register page
@@ -96,5 +121,6 @@ module.exports = (dbPoolInstance) => {
         getLogin,
         getRegister,
         postUsers,
+        checkUsers,
     };
 };
