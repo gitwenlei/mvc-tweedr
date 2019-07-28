@@ -8,8 +8,8 @@ module.exports = (db) => {
 
     let indexControllerCallback = (request, response) => { // function declared in routes.js
 
-        const user_id = request.cookies.user_id;
-        console.log(user_id);
+        const userId = request.cookies.user_id;
+        console.log(userId);
 
         db.tweedr.getAll(userId, (error, allTweets) => {
             response.render('tweedr/index', { allTweets }); //display index page
