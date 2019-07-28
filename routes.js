@@ -43,7 +43,7 @@ module.exports = (app, allModels) => {
     // TWEETING STUFF
     // ========================
     // Show create new tweet form
-    // app.get('/tweet',tweedrControllerCallbacks.tweet);
+    app.get('/tweet', tweedrControllerCallbacks.tweet);
 
 
 
