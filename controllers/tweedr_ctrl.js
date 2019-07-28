@@ -7,12 +7,12 @@ module.exports = (db) => {
    */
 
     let indexControllerCallback = (request, response) => { // function declared in routes.js
-        db.tweedr.getAll((error, allTweets) => {
-        // see db.js line 97 tweedr: tweedrModelsObject
-        // model file tweedr_model.js line 9
-        // getAll function - show all tweets
-        // console.log(allTweets);
-        response.render('tweedr/index', { allTweets }); //display index page in views folder
+
+        const user_id = request.cookies.user_id;
+        console.log(user_id);
+
+        db.tweedr.getAll(userId, (error, allTweets) => {
+            response.render('tweedr/index', { allTweets }); //display index page
         });
     };
 
@@ -27,7 +27,7 @@ module.exports = (db) => {
     // =======================================
     // Check user login details
     // ========================================
-    let checkControllerCallback = (request, response) => { // function declared in routes.js
+    let checkLogin = (request, response) => { // function declared in routes.js
         db.tweedr.checkUsers(request.body, (error, results) => {
             if (results !== null) {
                 // console.log(results);
@@ -47,7 +47,7 @@ module.exports = (db) => {
     // ========================
     // Show register page
     // ========================
-    let registerControllerCallback = (request, response) => { // function declared in routes.js
+    let registerForm = (request, response) => { // function declared in routes.js
       db.tweedr.getRegister((error, allUsers) => {
         // console.log(allUsers);
         response.render('tweedr/register', { allUsers }); //display registration form
@@ -65,7 +65,10 @@ module.exports = (db) => {
         });
     };
 
-
+    // show create tweet form
+    let tweetForm = (request, response) => {
+        response.render('tweedr/create');
+    };
 
 
   /**
@@ -77,8 +80,9 @@ module.exports = (db) => {
   return {
     index: indexControllerCallback, // see above line 9
     login: loginForm, // see above line 22
-    register: registerControllerCallback, // see above line 36
+    register: registerForm, // see above line 36
     users: usersControllerCallback, // see above line 50
-    check: checkControllerCallback,
+    check: checkLogin,
+    tweet: tweetForm,
   };
 }
