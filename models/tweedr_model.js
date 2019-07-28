@@ -8,7 +8,7 @@ const sha256 = require('js-sha256');
 module.exports = (dbPoolInstance) => {
 
     // `dbPoolInstance` is accessible within this function scope
-    let getAll = (callback) => {  // called in tweedr_ctrl file line 10
+    let getAll = (userId, callback) => {  // called in tweedr_ctrl file line 10
         let query = `SELECT * FROM tweets`;
         dbPoolInstance.query(query, (error, queryResult) => {
           if( error ){
@@ -96,9 +96,9 @@ module.exports = (dbPoolInstance) => {
     };
 
 
-    // ========================================
-    // Show user registration successful page
-    // ========================================
+    // ==================================================================
+    // Show user registration successful page & save new user to database
+    // ===================================================================
     let postUsers = (tweedr, callback) => {  // called in tweedr_ctrl file line 51
         const password = sha256(tweedr.password);
 
